@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server":  "nest new server"
-  },
-  "author": "",
+    "server":  "nest new server2"
+  },  "author": "",
   "license": "ISC"
 }
