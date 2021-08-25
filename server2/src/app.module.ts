@@ -7,6 +7,10 @@ import {User} from "./user/user.model";
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import {ResponseModule} from "./response/response.module";
+import { ConversationModule } from './conversation/conversation.module';
+import {Conversation} from "./conversation/conversation.model";
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import {HttpModule} from "@nestjs/axios";
 
 const providers = [AppService];
 
@@ -23,8 +27,11 @@ const providers = [AppService];
         username: "",
         password: "",
         database: "",
-        models: [User],
-      })
+        models: [User, Conversation],
+      }),
+      ConversationModule,
+      EventEmitterModule.forRoot(),
+      HttpModule
   ],
   controllers: [AppController],
   providers: [...providers],
