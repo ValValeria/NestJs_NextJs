@@ -7,8 +7,8 @@ export default function Footer(){
     return (
         <footer className={"w-100"}>
             <AppBar position="static">
-                <Toolbar>
-                    <div className={"w-100 center"}>
+                <Toolbar className={"center"}>
+                    <div className={"w-100"}>
                          Made with <b>love</b>
                     </div>
                 </Toolbar>

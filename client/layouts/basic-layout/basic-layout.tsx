@@ -29,10 +29,9 @@ export default class BasicLayout extends React.PureComponent<IBasicLayoutProps>{
     render(){
         const styles = {minHeight: this.props.isSection ? "100px" : "80vh"};
 
-
         return (
             <section className={"section w-100 center"} style={styles}>
-                <div className={"section__wrap center flex-column " + (!this.props.isSection) && 'section__wrap-half'}>
+                <div className={"section__wrap center flex-column wrap" + (!this.props.isSection) && 'section__wrap-half'}>
                     {
                         Boolean(this.props.hasTitle || this.props.text) && (
                             <div className={"section__title text-center"}>
