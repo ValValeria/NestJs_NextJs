@@ -3,23 +3,15 @@ import Typography from '@material-ui/core/Typography';
 
 
 interface IBasicLayoutProps{
-    title:{
-        typography: "h1" | "h2" | "h3" | "h4",
-        text: string
-    },
     children?: any,
     hasTitle?: boolean,
-    isSection?: boolean,
-    text: string
+    text?: string
 }
 
 export default class BasicLayout extends React.PureComponent<IBasicLayoutProps>{
     static defaultProps = {
-       title: {
-           typography: "h3",
-           text: ""
-       },
-        text: ""
+        text: "",
+        hasTitle: true
     }
 
     constructor(props: IBasicLayoutProps) {
@@ -27,21 +19,20 @@ export default class BasicLayout extends React.PureComponent<IBasicLayoutProps>{
     }
 
     render(){
-        const styles = {minHeight: this.props.isSection ? "100px" : "80vh"};
+        const styles = {minHeight: "80vh"};
 
         return (
             <section className={"section w-100 center"} style={styles}>
-                <div className={"section__wrap center flex-column wrap" + (!this.props.isSection) && 'section__wrap-half'}>
+                <div className={"section__wrap center flex-column wrap"}>
                     {
-                        Boolean(this.props.hasTitle || this.props.text) && (
+                        this.props.hasTitle && (
                             <div className={"section__title text-center"}>
-                                <Typography variant={this.props.title?.typography}
-                                            component={this.props.title?.typography}
+                                <Typography variant={"h3"}
+                                            component={"h3"}
                                             gutterBottom>
-                                    {this.props.title?.text.toUpperCase() || this.props.text.toUpperCase()}
+                                    {this.props.text?.toUpperCase()}
                                 </Typography>
-                            </div>
-                        )
+                            </div>)
                     }
                     <div className={"section__items w-100 center"}>
                         {this.props.children}
