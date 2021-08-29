@@ -1,6 +1,7 @@
 import React from "react";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Grid, { GridSpacing } from '@material-ui/core/Grid';
 
 
 export default function Footer(){
@@ -8,9 +9,13 @@ export default function Footer(){
         <footer className={"w-100"}>
             <AppBar position="static">
                 <Toolbar className={"center"}>
-                    <div className={"w-100"}>
-                         Made with <b>love</b>
-                    </div>
+                    <Grid container justifyContent={"center"}>
+                        <Grid item>
+                            <div className={"w-100"}>
+                                Made with <b>love</b>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
         </footer>
