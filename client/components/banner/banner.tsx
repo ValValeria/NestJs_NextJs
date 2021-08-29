@@ -4,6 +4,7 @@ import Image from 'next/image';
 import rewards from '../../public/rewards.png'
 import {Button, Typography} from "@material-ui/core";
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
+import SimpleButton from "../../components/simple_button/simple_button";
 
 export default function Banner(){
     return (
@@ -24,9 +25,7 @@ export default function Banner(){
                       </Grid>
 
                       <Grid item>
-                          <Button variant={"contained"} disableElevation={true} color={"primary"}>
-                              Read more
-                          </Button>
+                          <SimpleButton text={"Learn more"}/>
                       </Grid>
                   </Grid>
 

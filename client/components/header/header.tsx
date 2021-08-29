@@ -70,17 +70,17 @@ export default function Header() {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
+            <AppBar position="static" className={"default-theme"} id={"header"}>
+                <Toolbar className={"w-90"}>
                     <IconButton
                         edge="start"
-                        className={classes.menuButton}
+                        className={classes.menuButton + " color-black"}
                         color="inherit"
                         aria-label="open drawer"
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                    <Typography  variant="h6" className={"color-black"}>
                         Chat app
                     </Typography>
                 </Toolbar>

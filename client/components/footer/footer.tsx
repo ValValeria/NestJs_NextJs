@@ -7,11 +7,11 @@ import Grid, { GridSpacing } from '@material-ui/core/Grid';
 export default function Footer(){
     return (
         <footer className={"w-100"}>
-            <AppBar position="static">
+            <AppBar position="static" className={"footer__appbar"}>
                 <Toolbar className={"center"}>
                     <Grid container justifyContent={"center"}>
                         <Grid item>
-                            <div className={"w-100"}>
+                            <div className={"w-100 color-black"}>
                                 Made with <b>love</b>
                             </div>
                         </Grid>
