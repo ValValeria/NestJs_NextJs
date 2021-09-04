@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "задача-_app",
+      "appliesTo": "client/pages/_app.tsx",
+      "type": "launch"
+    }
+  ]
+}
