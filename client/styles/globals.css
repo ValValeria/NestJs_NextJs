@@ -46,11 +46,23 @@ a {
   padding: 5rem 0 !important;
   width: 90%;
   margin: 0 auto;
+  max-width: 1000px;
+}
+
+.auth .white-card{
+  max-width: 600px !important;
+}
+
+.wrap-half{
+  padding: 0.5rem 0 !important;
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .section{
   width: 100vw;
-  min-height: 60vh !important;
+  min-height: 80vh !important;
 }
 
 .section__title{
@@ -118,6 +130,10 @@ a {
 
 .color-black{
   color: #212529;
+}
+
+.not-uppercase{
+  text-transform: capitalize!important;
 }
 
 .simple_button{

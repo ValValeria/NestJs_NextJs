@@ -7,3 +7,9 @@ export interface IBaseUser{
 export interface IUser extends IBaseUser{
     email: string;
 }
+
+export interface IMessage{
+    id?: number,
+    message: string,
+    receiver_id: number
+}

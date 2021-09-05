@@ -10,7 +10,6 @@ import {ResponseModule} from "./response/response.module";
 import { ConversationModule } from './conversation/conversation.module';
 import {Conversation} from "./conversation/conversation.model";
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import {HttpModule} from "@nestjs/axios";
 
 const providers = [AppService];
 
@@ -31,7 +30,6 @@ const providers = [AppService];
       }),
       ConversationModule,
       EventEmitterModule.forRoot(),
-      HttpModule
   ],
   controllers: [AppController],
   providers: [...providers],

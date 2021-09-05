@@ -77,7 +77,7 @@ export default function HeaderDrawer(){
                                 <ListItemIcon>
                                     <PersonAddIcon/>
                                 </ListItemIcon>
-                                <ListItemText primary="Signup" />
+                                <ListItemText primary="Auth" />
                             </ListItem>
                         </React.Fragment>
                     )

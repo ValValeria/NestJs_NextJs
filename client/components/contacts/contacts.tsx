@@ -7,7 +7,7 @@ import SimpleButton from "../../components/simple_button/simple_button";
 
 export default function Contacts(){
     return (
-        <div className={"contacts"}>
+        <div className={"contacts"} id={"contacts"}>
             <BasicLayout text={"Contact us"}>
                 <WhiteCard>
                     <form className={"contacts__form w-100 center"}>

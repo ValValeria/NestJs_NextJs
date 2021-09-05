@@ -5,7 +5,7 @@ interface Props{
     text: string
 }
 
-export default function({text}: Props){
+export default function SimpleButton({text}: Props){
     return (
         <button className={"simple_button"}>
             <Typography  variant="subtitle1">

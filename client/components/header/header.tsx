@@ -3,10 +3,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import { createStyles, alpha, Theme, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import {Grid} from "@material-ui/core";
+import Nav from "../nav/nav";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -71,18 +71,36 @@ export default function Header() {
     return (
         <div className={classes.root}>
             <AppBar position="static" className={"default-theme"} id={"header"}>
-                <Toolbar className={"w-90"}>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton + " color-black"}
-                        color="inherit"
-                        aria-label="open drawer"
+                <Toolbar className={"wrap-half"}>
+                    <Grid container
+                          spacing={4}
+                          justifyContent={"space-between"}
+                          alignItems={"center"}
                     >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography  variant="h6" className={"color-black"}>
-                        Chat app
-                    </Typography>
+                        <Grid
+                            container
+                            justifyContent={"flex-start"}
+                            alignItems={"center"}
+                            item
+                            xs={3}>
+                            <IconButton
+                                edge="start"
+                                className={classes.menuButton + " color-black"}
+                                color="inherit"
+                                aria-label="open drawer"
+                                hidden
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography  variant="h6" className={"color-black"}>
+                                Chat app
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <Nav/>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
         </div>

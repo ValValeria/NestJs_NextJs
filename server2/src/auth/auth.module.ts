@@ -8,19 +8,23 @@ import {jwtConstants} from "./constants";
 import {JwtModule} from "@nestjs/jwt";
 import {ResponseService} from "../response/response.service";
 import {ResponseModule} from "../response/response.module";
+import {HttpModule} from "@nestjs/axios";
+
+const modules = [HttpModule];
 
 @Module({
   imports: [
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '1000s' },
     }),
     UserModule,
-    ResponseModule
+    ResponseModule,
+    ...modules
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy],
-  exports: [AuthService]
+  exports: [AuthService, ...modules]
 })
 export class AuthModule {}
