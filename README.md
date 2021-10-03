@@ -5,7 +5,7 @@ The app is under development
 Type in the terminal the following
 ```bash
 # development
-$ cd server
+$ cd server2
 $ npm install
 # watch mode
 $ npm run start:dev
@@ -15,6 +15,7 @@ In the separate terminal
 # development
 $ cd client
 $ npm install
+$ npm run build
 # watch mode
 $ npm run start
 ```

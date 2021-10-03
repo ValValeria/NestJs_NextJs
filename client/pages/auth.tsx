@@ -2,14 +2,13 @@ import React, {useCallback, useEffect, useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import BasicLayout from '../../layouts/basic-layout/basic-layout';
+import BasicLayout from '../layouts/basic-layout/basic-layout';
 import {useDispatch} from "react-redux";
-import {loginSuccess} from "../../store";
+import {loginSuccess} from "../store/index";
 import Alert from '@material-ui/lab/Alert';
-import SimpleButton from "../../components/simple_button/simple_button";
-import WhiteCard from "../../components/white_card/WhiteCard";
+import SimpleButton from "../components/simple_button/simple_button";
+import WhiteCard from "../components/white_card/WhiteCard";
 import {Grid} from "@material-ui/core";
-import {useRouter} from "next/router";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +36,6 @@ export default function AuthType(){
     const classes = useStyles();
     const [errors, updateErrors] = useState<string[]>([]);
     const [isLogin, updateIsLogin] = useState(false);
-    const router = useRouter();
     const dispatch = useDispatch();
 
     const submit = useCallback(async($event: any) => {
@@ -65,10 +63,13 @@ export default function AuthType(){
     }, []);
 
     useEffect(() => {
-        const auth_type = router.query.auth_type;
+        if (process.browser && window) {
+            const url = new URL(window.location.href);
+            const auth_type = url.searchParams.get('isLogin');
 
-        updateIsLogin(auth_type === "login");
-    }, [router.query.auth_type]);
+            updateIsLogin(auth_type === 'true');
+        }
+    }, []);
 
     return (
         <div className={"auth w-100"}>
