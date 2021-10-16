@@ -5,7 +5,8 @@ import Typography from '@material-ui/core/Typography';
 interface IBasicLayoutProps{
     children?: any,
     hasTitle?: boolean,
-    text?: string
+    text?: string,
+    className?: string
 }
 
 export default class BasicLayout extends React.PureComponent<IBasicLayoutProps>{
@@ -20,9 +21,15 @@ export default class BasicLayout extends React.PureComponent<IBasicLayoutProps>{
 
     render(){
         const styles = {minHeight: "80vh"};
+        const cssClasses = {section: true, 'w-100': true, 'center': true};
+
+        if(this.props.className){
+           const obj = this.props.className.split(/\s+/).map(v => [v, true]);
+           Object.assign(cssClasses, Object.fromEntries(obj));
+        }
 
         return (
-            <section className={"section w-100 center"} style={styles}>
+            <section className={cssClasses} style={styles}>
                 <div className={"section__wrap center flex-column wrap"}>
                     {
                         this.props.hasTitle && (

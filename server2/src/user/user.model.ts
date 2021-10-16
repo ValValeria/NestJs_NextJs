@@ -1,22 +1,26 @@
-import {Column, Model, PrimaryKey, Table} from 'sequelize-typescript';
+import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { IBaseUser } from '../interfaces';
 
 @Table({
-    tableName: "user_nestjs"
+  tableName: 'user_nestjs',
 })
-export class User extends Model {
-    @PrimaryKey
-    @Column
-    id: number;
+export class User extends Model implements IBaseUser {
+  @PrimaryKey
+  @Column
+  id: number;
 
-    @Column
-    username: string;
+  @Column
+  username: string;
 
-    @Column
-    email: string;
+  @Column
+  email: string;
 
-    @Column
-    password: string;
+  @Column
+  password: string;
 
-    @Column({ defaultValue: true })
-    isActive: boolean;
+  @Column({ defaultValue: true })
+  isActive: boolean;
+
+  @Column({ defaultValue: '' })
+  image: string;
 }
