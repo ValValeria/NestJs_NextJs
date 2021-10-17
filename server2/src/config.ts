@@ -1,9 +1,9 @@
 const obj = {
-  password: process.env.PASSWORD,
-  username: process.env.USERNAME,
-  database: process.env.DATABASE,
-  host: process.env.HOST,
-  port: process.env.PORT,
+  password: '',
+  username: '',
+  database: '',
+  host: '',
+  port: '',
 };
 
 export default obj;
