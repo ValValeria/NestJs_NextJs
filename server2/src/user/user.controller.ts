@@ -1,5 +1,19 @@
 import {
-  Controller, Get, Header, HttpStatus, Param, Put, Query, Req, Res,UploadedFile,UseInterceptors,
+  BadRequestException,
+  Controller,
+  ForbiddenException,
+  Get,
+  Header,
+  HttpStatus,
+  NotFoundException,
+  Param,
+  Put,
+  Query,
+  Req,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ResponseService } from '../response/response.service';
 import { User } from './user.model';
@@ -7,6 +21,11 @@ import { UserService } from './user.service';
 import { chunk } from 'lodash';
 import { Response, Request } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
+import * as path from 'path';
+import { AuthService } from '../auth/auth.service';
+import { AuthenticatedGuard } from '../auth/authenticated.guard';
+import { copyFile } from 'fs/promises';
+import { IUser } from '../interfaces';
 
 @Controller('api')
 export class UserController {
@@ -15,6 +34,7 @@ export class UserController {
     private userService: UserService,
   ) {}
 
+  @UseGuards(AuthenticatedGuard)
   @Get('/users')
   @Header('Content-Type', 'application/json')
   public async getUsers(
@@ -29,6 +49,7 @@ export class UserController {
     return this.responseService.getResponseJson('password');
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Get('/user/:id')
   @Header('Content-Type', 'application/json')
   public async getUser(
@@ -46,6 +67,7 @@ export class UserController {
     response.send(this.responseService.getResponseJson('password'));
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Put('/user/:id')
   @UseInterceptors(FileInterceptor('avatar'))
   @Header('Content-Type', 'application/json')
@@ -53,5 +75,29 @@ export class UserController {
     @Res() response: Response,
     @UploadedFile() file: Express.Multer.File,
     @Req() request: Request,
-  ): Promise<void> {}
+    @Param() id: number,
+  ): Promise<void> {
+    if (file.mimetype.startsWith('image/') && file.size < Math.pow(10, 4)) {
+      const user = request.user as IUser;
+
+      if (user.id === id) {
+        const filename = Math.round(Math.random() * 1000) + file.filename;
+        const destPath = path.join(__dirname, '...', 'public', filename);
+        const userToChange = await this.userService.findById(id);
+
+        if (!userToChange) {
+          throw new NotFoundException();
+        }
+
+        userToChange.image = `/images/${filename}`;
+        await Promise.all([copyFile(file.path, destPath), userToChange.save()]);
+      } else {
+        throw new ForbiddenException();
+      }
+
+      response.json(this.responseService);
+    } else {
+      throw new BadRequestException();
+    }
+  }
 }

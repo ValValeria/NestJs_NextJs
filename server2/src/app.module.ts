@@ -5,13 +5,14 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.model';
 import { AuthModule } from './auth/auth.module';
-import { ChatModule } from './chat/chat.module';
 import { ResponseModule } from './response/response.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { Conversation } from './conversation/conversation.model';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import config from './config';
+import * as path from 'path';
 
 const providers = [AppService];
 
@@ -20,9 +21,11 @@ const providers = [AppService];
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', 'public'),
+    }),
     UserModule,
     AuthModule,
-    ChatModule,
     ResponseModule,
     SequelizeModule.forRoot({
       dialect: 'mysql',
