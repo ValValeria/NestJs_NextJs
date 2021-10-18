@@ -1,8 +1,8 @@
 const obj = {
-  password: 'QMQGmS6YCU',
-  username: '1oASotOvGd',
-  database: '1oASotOvGd',
-  host: 'remotemysql.com',
+  password: '',
+  username: '',
+  database: '',
+  host: '',
   port: 3306,
 };
 
