@@ -11,17 +11,17 @@ import {
 import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { ResponseService } from '../response/response.service';
-import { AuthService } from './auth.service';
+import { LoginService } from '../login/login.service';
 import { IBaseUser, IUser } from '../interfaces';
 import { HttpService } from '@nestjs/axios';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('/api/auth')
 export class AuthController {
   constructor(
     private response: ResponseService<any>,
-    private authService: AuthService,
+    private authService: LoginService,
     private httpService: HttpService,
   ) {}
 

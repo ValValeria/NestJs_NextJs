@@ -15,3 +15,4 @@ export interface IMessage {
   sender_id: number;
   date: string
 }
+

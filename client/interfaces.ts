@@ -12,3 +12,14 @@ export interface IBaseUser{
 export interface IUser extends IBaseUser{
     email: string;
 }
+
+export interface IResponse<T>{
+    data: { [prop: string]: T };
+    status: 'ok' | 'bad';
+    messages: string[];
+    errors: string[];
+}
+
+export interface IUserResponse extends IResponse<IUser[]>{
+    data: {user: IUser[]}
+}

@@ -4,7 +4,7 @@ import { UserService } from '../user/user.service';
 import { IBaseUser, IUser } from '../interfaces';
 
 @Injectable()
-export class AuthService {
+export class LoginService {
   private _user: User;
   private _isAuthenticated = false;
 

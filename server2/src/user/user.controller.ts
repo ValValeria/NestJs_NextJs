@@ -22,7 +22,6 @@ import { chunk } from 'lodash';
 import { Response, Request } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
-import { AuthService } from '../auth/auth.service';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { copyFile } from 'fs/promises';
 import { IUser } from '../interfaces';
