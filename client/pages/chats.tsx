@@ -1,5 +1,7 @@
 import React from 'react';
 
 export default function Chats(){
-  return null;
+  return (
+    <BasicLayout hasTitle={true} text={"Your chats"}></BasicLayout>
+  );
 }

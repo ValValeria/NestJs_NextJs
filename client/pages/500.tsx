@@ -6,7 +6,7 @@ export default function Custom500Page(){
     return (
         <BasicLayout hasTitle={true} text={"404"}>
             <Typography variant={"h6"}>
-                The page you are looking for is not found
+                Some errors have occurred
             </Typography>
         </BasicLayout>
         );

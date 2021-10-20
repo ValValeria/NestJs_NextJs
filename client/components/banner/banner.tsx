@@ -8,7 +8,7 @@ import SimpleButton from "../../components/simple_button/simple_button";
 
 export default function Banner(){
     return (
-      <div className={"banner"}>
+      <div className={"banner center"}>
           <BasicLayout hasTitle={false}>
               <Grid container justifyContent={"center"} spacing={8} alignItems={"center"}>
                   <Grid container xs={7} direction={"column"} spacing={2}>

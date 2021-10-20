@@ -2,13 +2,14 @@ import React, {useCallback, useEffect, useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import BasicLayout from '../layouts/basic-layout/basic-layout';
+import BasicLayout from '../../layouts/basic-layout/basic-layout';
 import {useDispatch} from "react-redux";
-import {loginSuccess} from "../store/index";
+import {loginSuccess} from "../../store";
 import Alert from '@material-ui/lab/Alert';
-import SimpleButton from "../components/simple_button/simple_button";
-import WhiteCard from "../components/white_card/WhiteCard";
+import SimpleButton from "../../components/simple_button/simple_button";
+import WhiteCard from "../../components/white_card/WhiteCard";
 import {Grid} from "@material-ui/core";
+import {useRouter} from "next/router";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +38,7 @@ export default function AuthType(){
     const [errors, updateErrors] = useState<string[]>([]);
     const [isLogin, updateIsLogin] = useState(false);
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const submit = useCallback(async($event: any) => {
         $event.preventDefault();
@@ -44,7 +46,8 @@ export default function AuthType(){
         const form = document.getElementById("form") as HTMLFormElement;
         const formData = new FormData(form);
 
-        const response = await fetch("/signup", {
+        const url = isLogin ? '/api/auth/login' : '/api/auth/signup';
+        const response = await fetch(url, {
             method: "POST",
             body: formData
         });
@@ -56,6 +59,7 @@ export default function AuthType(){
                 const user = data.data.user;
 
                 dispatch(loginSuccess(user));
+                await router.push(`/users/${user.id}`);
             } else {
                 updateErrors([...data.errors]);
             }
@@ -63,13 +67,10 @@ export default function AuthType(){
     }, []);
 
     useEffect(() => {
-        if (process.browser && window) {
-            const url = new URL(window.location.href);
-            const auth_type = url.searchParams.get('isLogin');
+        const auth_type = router.query.type == "login";
 
-            updateIsLogin(auth_type === 'true');
-        }
-    }, []);
+        updateIsLogin(auth_type);
+    }, [router.query]);
 
     return (
         <div className={"auth w-100"}>

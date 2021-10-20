@@ -22,6 +22,7 @@ export default class BasicLayout extends React.PureComponent<IBasicLayoutProps>{
     render(){
         const styles = {minHeight: "80vh"};
         const cssClasses = {section: true, 'w-100': true, 'center': true};
+        const cssText = Object.keys(Object.fromEntries(Object.entries(cssClasses).filter(([k, v]) => v))).join(" ");
 
         if(this.props.className){
            const obj = this.props.className.split(/\s+/).map(v => [v, true]);
@@ -29,7 +30,7 @@ export default class BasicLayout extends React.PureComponent<IBasicLayoutProps>{
         }
 
         return (
-            <section className={cssClasses} style={styles}>
+            <section className={cssText} style={styles}>
                 <div className={"section__wrap center flex-column wrap"}>
                     {
                         this.props.hasTitle && (

@@ -14,10 +14,10 @@ import { ResponseService } from '../response/response.service';
 import { AuthService } from './auth.service';
 import { IBaseUser, IUser } from '../interfaces';
 import { HttpService } from '@nestjs/axios';
-import { catchError, Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { LocalAuthGuard } from './local-auth.guard';
 
-@Controller('auth')
+@Controller('/api/auth')
 export class AuthController {
   constructor(
     private response: ResponseService<any>,
@@ -56,8 +56,8 @@ export class AuthController {
         await this.authService.createNewUser(user);
 
         this.httpService
-          .post('/login', user)
-          .pipe(catchError((e) => Observable.create()))
+          .post('/api/auth/login', user)
+          .pipe(catchError((e) => of()))
           .subscribe((v) => {
             response.json(v);
           });
