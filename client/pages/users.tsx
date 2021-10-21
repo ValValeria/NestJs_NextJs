@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import UserCard from "../components/user_card";
 
 export default function Users(){
     const [users, updateUsers] = useState<IUser[]>();
@@ -31,18 +32,19 @@ export default function Users(){
     
     useEffect(() => {
         async function loadUsers(){
-            const response = await fetch(`/api/users/?page=${page}`);
-            const data: IResponse<IUser[]> = await response.json();
+            try{
+                const response = await fetch(`/api/users/?page=${page}`);
+                const data: IResponse<IUser[]> = await response.json();
 
-            updateUsers(data.data.users);
+                updateUsers(data.data.users);
+            } catch (e){
+                return Promise.reject()
+            }
 
             return Promise.resolve();
         }
 
         loadUsers
-            .then(() => {
-                console.log('Data is loaded');
-            })
             .catch(async() => {
                 await router.push('/');
             })
@@ -58,6 +60,14 @@ export default function Users(){
                   message="Some errors have occurred"
                   action={action}
               />
+
+              {
+                  users.map(v => {
+                      return (
+                          <UserCard user={v} key={Math.random()}/>
+                      );
+                  })
+              }
           </BasicLayout>
         </div>);
 }
