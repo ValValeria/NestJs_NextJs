@@ -23,6 +23,7 @@ export default function UserCard(props: {user: IUser}){
         <SimpleCard>
             <Grid container spacing={2}>
                 <Grid item xs={4}>
+                    <img src={'/images/avatar.jpg'} alt={"..."}/>
                 </Grid>
                 <Grid item xs={8}>
                     <Typography variant={"h6"}>

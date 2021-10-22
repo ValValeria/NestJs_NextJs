@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import UserCard from "../components/user_card";
 
 export default function Users(){
-    const [users, updateUsers] = useState<IUser[]>();
+    const [users, updateUsers] = useState<IUser[]>([]);
     const [page, updatePage] = useState<number>(1);
     const [open, updateOpen] = useState<boolean>(false);
     const router = useRouter();
@@ -44,7 +44,10 @@ export default function Users(){
             return Promise.resolve();
         }
 
-        loadUsers
+        loadUsers()
+            .then(v => {
+                console.log('Data is loaded')
+            })
             .catch(async() => {
                 await router.push('/');
             })
