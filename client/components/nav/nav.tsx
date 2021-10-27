@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {IStore} from "../../interfaces";
 
 
-type links = {link: string, name: string}[]
+type links = {link: string, name: string}[];
 
 export default function Nav(){
     const [activeLinks, updateActiveLinks] = useState<links>([]);
@@ -16,8 +16,8 @@ export default function Nav(){
         {link: '/posts', name: 'Posts'}
     ];
     const notAuthLinks: links = [
-        {link: "/auth?isLogin=true", name: "Login"},
-        {link: "/auth?isLogin=false", name: "Sign up"},
+        {link: "/auth/login", name: "Login"},
+        {link: "/auth/signup", name: "Sign up"},
     ];
     const authLinks: links = [];
 

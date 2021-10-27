@@ -12,7 +12,8 @@ import { SessionSerializer } from './session.serializer';
 import { LoginModule } from '../login/login.module';
 
 const modules = [HttpModule];
-const exportProviders = [AuthenticatedGuard, LoginService, LocalAuthGuard];
+const exportProviders = [LoginService];
+const providers = [AuthenticatedGuard, LocalAuthGuard];
 
 @Module({
   imports: [
@@ -22,8 +23,13 @@ const exportProviders = [AuthenticatedGuard, LoginService, LocalAuthGuard];
     ResponseModule,
     ...modules,
   ],
-  controllers: [AuthController, LocalStrategy],
-  providers: [LocalStrategy, ...exportProviders, SessionSerializer],
-  exports: [...modules, ...exportProviders],
+  controllers: [AuthController],
+  providers: [
+    LocalStrategy,
+    ...exportProviders,
+    SessionSerializer,
+    ...providers,
+  ],
+  exports: [...exportProviders],
 })
 export class AuthModule {}

@@ -10,6 +10,7 @@ import SimpleButton from "../../components/simple_button/simple_button";
 import WhiteCard from "../../components/white_card/WhiteCard";
 import {Grid} from "@material-ui/core";
 import {useRouter} from "next/router";
+import Divider from '@mui/material/Divider';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -87,18 +88,23 @@ export default function AuthType(){
                                 isLogin ? "Login" : "Sign up"
                             }
                         </Typography>
+
                         <form className={classes.form} noValidate id={"form"}>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                            />
+                            {
+                                !isLogin && (
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        autoComplete="email"
+                                        autoFocus
+                                    />
+                                )
+                            }
                             <TextField
                                 variant="outlined"
                                 margin="normal"

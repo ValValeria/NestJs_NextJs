@@ -1,7 +1,7 @@
 # compiled output
 dist
 .next
-/node_modules
+node_modules
 .idea
 # Logs
 logs
@@ -11,6 +11,8 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+config.ts
+server2/src/config.ts
 
 # OS
 .DS_Store

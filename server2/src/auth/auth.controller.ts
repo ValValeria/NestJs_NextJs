@@ -3,29 +3,31 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Logger,
   Post,
   Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { AuthGuard } from '@nestjs/passport';
 import { ResponseService } from '../response/response.service';
 import { LoginService } from '../login/login.service';
 import { IBaseUser, IUser } from '../interfaces';
 import { HttpService } from '@nestjs/axios';
-import { catchError, of } from 'rxjs';
 import { LocalAuthGuard } from './local-auth.guard';
+import { User } from '../user/user.model';
 
 @Controller('/api/auth')
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
+
   constructor(
     private response: ResponseService<any>,
     private authService: LoginService,
     private httpService: HttpService,
   ) {}
 
-  @Post('/login/')
+  @Post('/login')
   @UseGuards(LocalAuthGuard)
   public async login(
     @Res() response: Response,
@@ -39,14 +41,17 @@ export class AuthController {
   }
 
   @Post('/signup')
-  public async signup(
-    @Req() request: Request,
-    @Res() response: Response,
-    @Body() user: IUser,
-  ) {
+  public async signup(@Req() request: Request, @Res() response: Response) {
+    const body = request.body;
+
     if (request.user) {
       response.status(HttpStatus.BAD_REQUEST).send();
     } else {
+      const user = new User();
+      user.username = body.username;
+      user.password = body.password;
+      user.email = body.email;
+
       const data = await this.authService.validateUser(
         user.username,
         user.password,
@@ -55,12 +60,9 @@ export class AuthController {
       if (!data) {
         await this.authService.createNewUser(user);
 
-        this.httpService
-          .post('/api/auth/login', user)
-          .pipe(catchError((e) => of()))
-          .subscribe((v) => {
-            response.json(v);
-          });
+        this.httpService.post('/api/auth/login', user).subscribe((v) => {
+          response.json(v);
+        });
       }
     }
   }

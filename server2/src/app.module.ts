@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from './user/user.module';
@@ -15,6 +14,7 @@ import config from './config';
 import * as path from 'path';
 
 const providers = [AppService];
+const modules = [UserModule, ResponseModule, ConversationModule, AuthModule];
 
 @Module({
   imports: [
@@ -24,9 +24,6 @@ const providers = [AppService];
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..', 'public'),
     }),
-    UserModule,
-    AuthModule,
-    ResponseModule,
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: config.host,
@@ -36,10 +33,10 @@ const providers = [AppService];
       database: config.database,
       models: [User, Conversation],
     }),
-    ConversationModule,
     EventEmitterModule.forRoot(),
+    ...modules,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [...providers],
   exports: [...providers],
 })
