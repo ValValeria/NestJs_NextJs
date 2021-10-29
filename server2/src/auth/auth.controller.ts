@@ -22,7 +22,7 @@ export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
   constructor(
-    private response: ResponseService<any>,
+    private responseService: ResponseService<any>,
     private authService: LoginService,
     private httpService: HttpService,
   ) {}
@@ -35,9 +35,9 @@ export class AuthController {
   ): Promise<void> {
     const data = await this.authService.login(request.user as IBaseUser);
 
-    this.response.data = { user: data };
+    this.responseService.data = { user: data };
 
-    response.end(JSON.stringify(this.response.data));
+    response.end(JSON.stringify(this.responseService.data));
   }
 
   @Post('/signup')
@@ -51,6 +51,7 @@ export class AuthController {
       user.username = body.username;
       user.password = body.password;
       user.email = body.email;
+      user.image = '/public/images/user.jpg';
 
       const data = await this.authService.validateUser(
         user.username,
@@ -63,6 +64,11 @@ export class AuthController {
         this.httpService.post('/api/auth/login', user).subscribe((v) => {
           response.json(v);
         });
+      } else {
+        this.responseService.errors.push(
+          'The user with such email or username is already in our database',
+        );
+        response.json(this.responseService);
       }
     }
   }

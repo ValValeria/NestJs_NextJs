@@ -30,7 +30,7 @@ export class UserService {
   }
 
   async findByUsername(username: string): Promise<User> {
-    return User.findOne({ where: { username: { username } } });
+    return User.findOne({ where: { username: username } });
   }
 
   async findById(id: number){

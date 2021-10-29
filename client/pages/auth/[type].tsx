@@ -45,12 +45,24 @@ export default function Auth(){
         $event.preventDefault();
 
         const form = document.getElementById("form") as HTMLFormElement;
-        const formData = new FormData(form);
+        const emailInput = form.querySelector('#email') as HTMLInputElement;
+        const passwordInput = form.querySelector('#password') as HTMLInputElement;
+        const usernameInput = form.querySelector('#username') as HTMLInputElement;
+        const data = {username: usernameInput?.value, password: passwordInput?.value};
+        let url = '/api/auth/signup';
 
-        const url = isLogin ? '/api/auth/login' : '/api/auth/signup';
+        if(isLogin){
+            url = '/api/auth/login';
+        } else {
+            Object.assign(data, {email: emailInput?.value});
+        }
+
         const response = await fetch(url, {
             method: "POST",
-            body: formData
+            body: JSON.stringify(data),
+            headers:{
+                'Content-Type': 'application/json'
+            }
         });
 
         if(response.ok){
@@ -83,7 +95,7 @@ export default function Auth(){
                         alignItems={"center"}
                         justifyContent={"center"}
                     >
-                        <Typography component="h3" variant="h3" className={"center"}>
+                        <Typography component="h3" variant="h3" className={"center mb"}>
                             {
                                 isLogin ? "Login" : "Sign up"
                             }
