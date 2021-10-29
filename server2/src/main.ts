@@ -3,9 +3,11 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import { NotFoundFilter } from './not-found.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.useGlobalFilters(new NotFoundFilter());
   app.use(
     session({
       secret: 'you secret key',

@@ -2,7 +2,8 @@
 The app is under development
 
 ## Running the app
-Type in the terminal the following
+Firstly, you have to create a file, named `config.ts`, which must be located inside `server2/src`.
+Then type in the terminal the following
 ```bash
 # development
 $ cd server2

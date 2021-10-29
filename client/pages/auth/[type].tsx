@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function AuthType(){
+export default function Auth(){
     const classes = useStyles();
     const [errors, updateErrors] = useState<string[]>([]);
     const [isLogin, updateIsLogin] = useState(false);
