@@ -3,8 +3,7 @@ import type { AppProps } from 'next/app';
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
 import 'bootstrap/dist/css/bootstrap.css';
-import {Provider} from "react-redux";
-import {loginSuccess, store} from '../store';
+import {loginSuccess} from '../store';
 import Head from 'next/head';
 import React from 'react';
 import {IResponse, IUser} from "../interfaces";
@@ -98,7 +97,7 @@ class MyApp extends React.PureComponent<props, MyAppState>{
         const {Component, pageProps} = this.props;
 
         return (
-            <Provider store={store}>
+            <React.Fragment>
                 <Head>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
@@ -117,7 +116,7 @@ class MyApp extends React.PureComponent<props, MyAppState>{
                     </div>
                     <Footer/>
                 </div>
-            </Provider>
+            </React.Fragment>
         );
     }
 

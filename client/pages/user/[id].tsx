@@ -3,16 +3,15 @@ import BasicLayout from "../../layouts/basic-layout/basic-layout";
 import {useRouter} from "next/router";
 import {IStore, IUser, IUserResponse} from "../../interfaces";
 import {useSelector} from "react-redux";
-import {hasPermission, Permissions} from "../../functions";
-import SimpleCard from "../../components/simple_card/simple_card";
+import {hasPermission, Permissions, UserModel} from "../../functions";
 import WhiteCard from "../../components/white_card/WhiteCard";
 import {Button, Grid} from "@mui/material";
-import Image from 'next/Image';
 import Typography from '@mui/material/Typography';
+import Image from 'next/image'
 
 
 export default function User(){
-    const [user, updateUser] = useState<IUser>();
+    const [user, updateUser] = useState<IUser>(new UserModel());
     const authData: IStore = useSelector<{auth: IStore}>(state => state.auth) as IStore;
     const router = useRouter();
 
@@ -39,10 +38,17 @@ export default function User(){
                 <Grid container>
                     <Grid item>
                         <WhiteCard>
-                           <Image src={"/public/images/user.jpg"} alt={"..."} className={"mb"}/>
+                           <Image src={"/public/images/user.jpg"}
+                                  alt={"..."}
+                                  width={300}
+                                  height={500}/>
+
                             {
-                                hasPermission(authData.user, user, Permissions.DELETE_ACCOUNT) && (
-                                    <Button variant="contained">Delete an account</Button>
+                                hasPermission(authData.user, user as IUser, Permissions.DELETE_ACCOUNT) && (
+                                    <div className={"user__actions"}>
+                                        <Button variant="contained">Delete an account</Button>
+                                        <Button variant="outlined">View messages</Button>
+                                    </div>
                                 )
                             }
                         </WhiteCard>
