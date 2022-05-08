@@ -1,5 +1,5 @@
 # Chat app
-The app is under development
+Simple template of chat app. 
 
 ## Running the app
 Firstly, you have to create a file, named `config.ts`, which must be located inside `server2/src`.
